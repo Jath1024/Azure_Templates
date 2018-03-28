@@ -90,3 +90,88 @@
     type: string
     state: present
     hive: C:\Users\Default\NTUSER.dat
+
+- name: Windows Upate
+  win_regedit:
+    path: HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU
+    name: "{{item.name}}"
+    data: "{{item.data}}"
+    type: "{{item.type}}"
+  with_items:
+  -name: AUOptions
+   data: 00000004
+   type: dword
+  -name: AUPowerManagement
+   data: 00000001
+   type: dword
+  -name: AutoInstallMinorUpdates
+   data: 00000001
+   type: dword
+  -name: DetectionFrequency
+   data: 0000000a
+   type: dword
+  -name: DetectionFrequencyEnabled
+   data: 00000001
+   type: dword
+  -name: IncludeRecommendedUpdates
+   data: 00000001
+   type: dword
+  -name: NoAUAsDefaultShutdownOption
+   data: 00000001
+   type: dword
+  -name: NoAUShutdownOption
+   data: 00000001
+   type: dword
+  -name: NoAutoRebootWithLoggedOnUsers
+   data: 00000001
+   type: dword
+  -name: NoAutoUpdate
+   data: 00000000
+   type: dword
+  -name: RebootRelaunchTimeout
+   data: 0000000a
+   type: dword
+  -name: RebootRelaunchTimeoutEnabled
+   data: 00000001
+   type: dword
+  -name: RescheduleWaitTime
+   data: 0000000a
+   type: dword
+  -name: RescheduleWaitTimeEnabled
+   data: 00000001
+   type: dword
+  -name: ScheduledInstallDay
+   data: 00000000
+   type: dword
+  -name: ScheduledInstallTime
+   data: 00000003
+   type: dword
+  -name: UseWUServer
+   data: 00000001
+   type: dword
+
+- name: Windows Upate
+  win_regedit:
+    path: HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate
+    name: "{{item.name}}"
+    data: "{{item.data}}"
+    type: "{{item.type}}"
+  with_items:
+  -name: AcceptTrustedPublisherCerts
+   data: 00000001
+   type: dword
+  -name: ElevateNonAdmins
+   data: 00000001
+   type: dword
+  -name: TargetGroup
+   data: Workstations
+   type: string
+  -name: TargetGroupEnabled
+   data: 00000000
+   type: dword
+  -name: WUServer
+   data: "http://your-WSUS-server:port" 
+   type: string
+  -name: WUStatusServer
+   data: "http://your-WSUS-server:port"
+   type: string
