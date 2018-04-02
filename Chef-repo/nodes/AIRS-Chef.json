@@ -1,0 +1,580 @@
+{
+  "name": "AIRS-Chef",
+  "normal": {
+    "tags": [
+
+    ]
+  },
+  "automatic": {
+    "cpu": {
+      "0": {
+        "cores": 2,
+        "vendor_id": "GenuineIntel",
+        "family": "179",
+        "model": "20225",
+        "stepping": "1",
+        "physical_id": "CPU0",
+        "model_name": "Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz",
+        "description": "Intel64 Family 6 Model 79 Stepping 1",
+        "mhz": "2295",
+        "cache_size": " KB"
+      },
+      "total": 2,
+      "cores": 2,
+      "real": 1
+    },
+    "filesystem": {
+      "A:": {
+        "kb_size": 0,
+        "kb_available": 0,
+        "kb_used": 0,
+        "percent_used": 0,
+        "mount": "A:",
+        "volume_name": null
+      },
+      "C:": {
+        "kb_size": 136363110,
+        "kb_available": 119129296,
+        "kb_used": 17233814,
+        "percent_used": 12,
+        "mount": "C:",
+        "fs_type": "ntfs",
+        "volume_name": ""
+      },
+      "D:": {
+        "kb_size": 8588816,
+        "kb_available": 7474577,
+        "kb_used": 1114239,
+        "percent_used": 12,
+        "mount": "D:",
+        "fs_type": "ntfs",
+        "volume_name": "Temporary Storage"
+      },
+      "E:": {
+        "kb_size": 0,
+        "kb_available": 0,
+        "kb_used": 0,
+        "percent_used": 0,
+        "mount": "E:",
+        "volume_name": null
+      }
+    },
+    "kernel": {
+      "os_info": {
+        "boot_device": "\\Device\\HarddiskVolume1",
+        "build_number": "14393",
+        "build_type": "Multiprocessor Free",
+        "caption": "Microsoft Windows Server 2016 Datacenter",
+        "code_set": "1252",
+        "country_code": "1",
+        "creation_class_name": "Win32_OperatingSystem",
+        "cs_creation_class_name": "Win32_ComputerSystem",
+        "csd_version": null,
+        "cs_name": "AIRS-Chef",
+        "current_time_zone": 0,
+        "data_execution_prevention_32_bit_applications": true,
+        "data_execution_prevention_available": true,
+        "data_execution_prevention_drivers": true,
+        "data_execution_prevention_support_policy": 3,
+        "debug": false,
+        "description": "",
+        "distributed": false,
+        "encryption_level": 256,
+        "foreground_application_boost": 2,
+        "free_physical_memory": "2114068",
+        "free_space_in_paging_files": "980472",
+        "free_virtual_memory": "3261796",
+        "install_date": "20180402083217.000000+000",
+        "large_system_cache": null,
+        "last_boot_up_time": "20180402093826.843861+000",
+        "local_date_time": "20180402103653.313000+000",
+        "locale": "0409",
+        "manufacturer": "Microsoft Corporation",
+        "max_number_of_processes": -1,
+        "max_process_memory_size": "137438953344",
+        "mui_languages": [
+          "en-US"
+        ],
+        "name": "Microsoft Windows Server 2016 Datacenter|C:\\Windows|\\Device\\Harddisk0\\Partition1",
+        "number_of_licensed_users": 0,
+        "number_of_processes": 64,
+        "number_of_users": 1,
+        "operating_system_sku": 8,
+        "organization": null,
+        "os_architecture": "64-bit",
+        "os_language": 1033,
+        "os_product_suite": 400,
+        "os_type": 18,
+        "other_type_description": null,
+        "pae_enabled": null,
+        "plus_product_id": null,
+        "plus_version_number": null,
+        "portable_operating_system": false,
+        "primary": true,
+        "product_type": 3,
+        "registered_user": null,
+        "serial_number": "00376-40000-00000-AA947",
+        "service_pack_major_version": 0,
+        "service_pack_minor_version": 0,
+        "size_stored_in_paging_files": "1048436",
+        "status": "OK",
+        "suite_mask": 400,
+        "system_device": "\\Device\\HarddiskVolume1",
+        "system_directory": "C:\\Windows\\system32",
+        "system_drive": "C:",
+        "total_swap_space_size": null,
+        "total_virtual_memory_size": "5242280",
+        "total_visible_memory_size": "4193844",
+        "version": "10.0.14393",
+        "windows_directory": "C:\\Windows"
+      },
+      "name": "Microsoft Windows Server 2016 Datacenter",
+      "release": "10.0.14393",
+      "version": "10.0.14393  Build 14393",
+      "os": "WINNT",
+      "cs_info": {
+        "admin_password_status": 3,
+        "automatic_managed_pagefile": false,
+        "automatic_reset_boot_option": true,
+        "automatic_reset_capability": true,
+        "boot_option_on_limit": 0,
+        "boot_option_on_watch_dog": 0,
+        "boot_rom_supported": true,
+        "boot_status": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "bootup_state": "Normal boot",
+        "caption": "AIRS-Chef",
+        "chassis_bootup_state": 3,
+        "chassis_sku_number": null,
+        "creation_class_name": "Win32_ComputerSystem",
+        "current_time_zone": 0,
+        "daylight_in_effect": null,
+        "description": "AT/AT COMPATIBLE",
+        "dns_host_name": "AIRS-Chef",
+        "domain": "WORKGROUP",
+        "domain_role": 2,
+        "enable_daylight_savings_time": true,
+        "front_panel_reset_status": 3,
+        "hypervisor_present": true,
+        "infrared_supported": false,
+        "initial_load_info": null,
+        "install_date": null,
+        "keyboard_password_status": 3,
+        "last_load_info": null,
+        "manufacturer": "Microsoft Corporation",
+        "model": "Virtual Machine",
+        "name": "AIRS-Chef",
+        "name_format": null,
+        "network_server_mode_enabled": true,
+        "number_of_logical_processors": 2,
+        "number_of_processors": 1,
+        "oem_string_array": [
+          "[MS_VM_CERT/SHA1/9b80ca0d5dd061ec9da4e494f4c3fd1196270c22]",
+          "00000000000000000000000000000000",
+          "To be filed by MSFT"
+        ],
+        "part_of_domain": false,
+        "pause_after_reset": "3932100000",
+        "pc_system_type": 1,
+        "pc_system_type_ex": 1,
+        "power_management_capabilities": null,
+        "power_management_supported": null,
+        "power_on_password_status": 3,
+        "power_state": 0,
+        "power_supply_state": 3,
+        "primary_owner_contact": null,
+        "primary_owner_name": null,
+        "reset_capability": 1,
+        "reset_count": -1,
+        "reset_limit": -1,
+        "roles": [
+          "LM_Workstation",
+          "LM_Server",
+          "NT",
+          "Server_NT"
+        ],
+        "status": "OK",
+        "support_contact_description": null,
+        "system_family": null,
+        "system_sku_number": null,
+        "system_startup_delay": null,
+        "system_startup_options": null,
+        "system_startup_setting": null,
+        "system_type": "x64-based PC",
+        "thermal_state": 1,
+        "total_physical_memory": "4294496256",
+        "user_name": null,
+        "wake_up_type": 6,
+        "workgroup": "WORKGROUP"
+      },
+      "machine": "x86_64"
+    },
+    "memory": {
+      "swap": {
+        "total": "1048436kB",
+        "free": "980472kB"
+      },
+      "total": "4193844kB",
+      "free": "2113452kB"
+    },
+    "network": {
+      "interfaces": {
+        "0x4": {
+          "configuration": {
+            "ip_address": [
+              "10.0.0.4",
+              "fe80::ac0b:4db8:82e7:7a50"
+            ],
+            "arp_always_source_route": null,
+            "arp_use_ether_snap": null,
+            "caption": "[00000004] Microsoft Hyper-V Network Adapter",
+            "database_path": "%SystemRoot%\\System32\\drivers\\etc",
+            "dead_gw_detect_enabled": null,
+            "default_ip_gateway": [
+              "10.0.0.1"
+            ],
+            "default_tos": null,
+            "default_ttl": null,
+            "description": "Microsoft Hyper-V Network Adapter #2",
+            "dhcp_enabled": true,
+            "dhcp_lease_expires": "20380119031407.000000+000",
+            "dhcp_lease_obtained": "20180402093842.000000+000",
+            "dhcp_server": "168.63.129.16",
+            "dns_domain": "4iwnj1v33qjuvesfudjq5qhjzg.ax.internal.cloudapp.net",
+            "dns_domain_suffix_search_order": [
+              "4iwnj1v33qjuvesfudjq5qhjzg.ax.internal.cloudapp.net"
+            ],
+            "dns_enabled_for_wins_resolution": false,
+            "dns_host_name": "AIRS-Chef",
+            "dns_server_search_order": [
+              "168.63.129.16"
+            ],
+            "domain_dns_registration_enabled": false,
+            "forward_buffer_memory": null,
+            "full_dns_registration_enabled": true,
+            "gateway_cost_metric": [
+              0
+            ],
+            "igmp_level": null,
+            "index": 4,
+            "interface_index": 4,
+            "ip_connection_metric": 10,
+            "ip_enabled": true,
+            "ip_filter_security_enabled": false,
+            "ip_port_security_enabled": null,
+            "ip_sec_permit_ip_protocols": [
+
+            ],
+            "ip_sec_permit_tcp_ports": [
+
+            ],
+            "ip_sec_permit_udp_ports": [
+
+            ],
+            "ip_subnet": [
+              "255.255.255.248",
+              "64"
+            ],
+            "ip_use_zero_broadcast": null,
+            "ipx_address": null,
+            "ipx_enabled": null,
+            "ipx_frame_type": null,
+            "ipx_media_type": null,
+            "ipx_network_number": null,
+            "ipx_virtual_net_number": null,
+            "keep_alive_interval": null,
+            "keep_alive_time": null,
+            "mac_address": "00:0D:3A:38:8D:E5",
+            "mtu": null,
+            "num_forward_packets": null,
+            "pmtubh_detect_enabled": null,
+            "pmtu_discovery_enabled": null,
+            "service_name": "netvsc",
+            "setting_id": "{49CA3B04-3889-4196-B896-1F362A25A6A0}",
+            "tcpip_netbios_options": 0,
+            "tcp_max_connect_retransmissions": null,
+            "tcp_max_data_retransmissions": null,
+            "tcp_num_connections": null,
+            "tcp_use_rfc1122_urgent_pointer": null,
+            "tcp_window_size": null,
+            "wins_enable_lm_hosts_lookup": true,
+            "wins_host_lookup_file": null,
+            "wins_primary_server": null,
+            "wins_scope_id": "",
+            "wins_secondary_server": null
+          },
+          "instance": {
+            "adapter_type": "Ethernet 802.3",
+            "adapter_type_id": 0,
+            "auto_sense": null,
+            "availability": 3,
+            "caption": "[00000004] Microsoft Hyper-V Network Adapter",
+            "config_manager_error_code": 0,
+            "config_manager_user_config": false,
+            "creation_class_name": "Win32_NetworkAdapter",
+            "description": "Microsoft Hyper-V Network Adapter",
+            "device_id": "4",
+            "error_cleared": null,
+            "error_description": null,
+            "guid": "{49CA3B04-3889-4196-B896-1F362A25A6A0}",
+            "index": 4,
+            "install_date": null,
+            "installed": true,
+            "interface_index": 4,
+            "last_error_code": null,
+            "mac_address": "00:0D:3A:38:8D:E5",
+            "manufacturer": "Microsoft",
+            "max_number_controlled": 0,
+            "max_speed": null,
+            "name": "Microsoft Hyper-V Network Adapter #2",
+            "net_connection_id": "Ethernet 2",
+            "net_connection_status": 2,
+            "net_enabled": true,
+            "network_addresses": null,
+            "permanent_address": null,
+            "physical_adapter": true,
+            "pnp_device_id": "VMBUS\\{F8615163-DF3E-46C5-913F-F2D2F965ED0E}\\{000D3A38-8DE5-000D-3A38-8DE5000D3A38}",
+            "power_management_capabilities": null,
+            "power_management_supported": false,
+            "product_name": "Microsoft Hyper-V Network Adapter",
+            "service_name": "netvsc",
+            "speed": "40000000000",
+            "status": null,
+            "status_info": null,
+            "system_creation_class_name": "Win32_ComputerSystem",
+            "system_name": "AIRS-Chef",
+            "time_of_last_reset": "20180402093826.843861+000"
+          },
+          "counters": {
+
+          },
+          "addresses": {
+            "10.0.0.4": {
+              "prefixlen": "29",
+              "netmask": "255.255.255.248",
+              "broadcast": "10.0.0.7",
+              "family": "inet"
+            },
+            "fe80::ac0b:4db8:82e7:7a50": {
+              "prefixlen": "64",
+              "family": "inet6",
+              "scope": "Link"
+            },
+            "00:0D:3A:38:8D:E5": {
+              "family": "lladdr"
+            }
+          },
+          "mtu": null,
+          "type": "Ethernet 802.3",
+          "arp": {
+            "10.0.0.1": "12:34:56:78:9a:bc",
+            "10.0.0.7": "ff:ff:ff:ff:ff:ff",
+            "224.0.0.22": "01:00:5e:00:00:16",
+            "224.0.0.252": "01:00:5e:00:00:fc",
+            "239.255.255.250": "01:00:5e:7f:ff:fa",
+            "255.255.255.255": "ff:ff:ff:ff:ff:ff"
+          },
+          "encapsulation": "Ethernet"
+        }
+      },
+      "default_gateway": "10.0.0.1",
+      "default_interface": "0x4"
+    },
+    "counters": {
+      "network": {
+
+      }
+    },
+    "ipaddress": "10.0.0.4",
+    "macaddress": "00:0D:3A:38:8D:E5",
+    "ip6address": "fe80::ac0b:4db8:82e7:7a50",
+    "os": "windows",
+    "os_version": "10.0.14393",
+    "platform": "windows",
+    "platform_version": "10.0.14393",
+    "platform_family": "windows",
+    "uptime_seconds": 3507,
+    "uptime": "58 minutes 27 seconds",
+    "virtualization": {
+      "systems": {
+        "hyperv": "guest"
+      },
+      "system": "hyper-v",
+      "role": "guest"
+    },
+    "azure": {
+      "metadata": {
+        "compute": {
+          "location": "westeurope",
+          "name": "AIRS-Chef",
+          "offer": "WindowsServer",
+          "osType": "Windows",
+          "platformFaultDomain": "0",
+          "platformUpdateDomain": "0",
+          "publisher": "MicrosoftWindowsServer",
+          "sku": "2016-Datacenter",
+          "version": "2016.127.20180220",
+          "vmId": "39f4a312-d6f9-4e4e-8b80-2a377d1db7a7",
+          "vmSize": "Standard_B2s"
+        },
+        "network": {
+          "interfaces": {
+            "000D3A388DE5": {
+              "mac": "000D3A388DE5",
+              "public_ipv6": [
+
+              ],
+              "public_ipv4": [
+                "51.144.229.64"
+              ],
+              "local_ipv6": [
+
+              ],
+              "local_ipv4": [
+                "10.0.0.4"
+              ]
+            }
+          },
+          "public_ipv4": [
+            "51.144.229.64"
+          ],
+          "local_ipv4": [
+            "10.0.0.4"
+          ],
+          "public_ipv6": [
+
+          ],
+          "local_ipv6": [
+
+          ]
+        }
+      }
+    },
+    "languages": {
+      "perl": {
+        "version": "5.8.8",
+        "archname": "msys-64int"
+      },
+      "powershell": {
+        "version": "5.1.14393.1944",
+        "ws_man_stack_version": "3.0",
+        "serialization_version": "1.1.0.1",
+        "clr_version": "4.0.30319.42000",
+        "build_version": "10.0.14393.1944",
+        "compatible_versions": [
+          "1.0",
+          "2.0",
+          "3.0",
+          "4.0",
+          "5.0",
+          "5.1.14393.1944"
+        ],
+        "remoting_protocol_version": "2.3"
+      },
+      "ruby": {
+        "platform": "x64-mingw32",
+        "version": "2.4.3",
+        "release_date": "2017-12-14",
+        "target": "x86_64-w64-mingw32",
+        "target_cpu": "x64",
+        "target_vendor": "w64",
+        "target_os": "mingw32",
+        "host": "x86_64-w64-mingw32",
+        "host_cpu": "x86_64",
+        "host_os": "mingw32",
+        "host_vendor": "w64",
+        "bin_dir": "C:/opscode/chefdk/embedded/bin",
+        "ruby_bin": "C:/opscode/chefdk/embedded/bin/ruby",
+        "gems_dir": "C:/opscode/chefdk/embedded/lib/ruby/gems/2.4.0",
+        "gem_bin": "C:/opscode/chefdk/embedded/bin/gem"
+      }
+    },
+    "chef_packages": {
+      "chef": {
+        "version": "13.8.5",
+        "chef_root": "C:/opscode/chefdk/embedded/lib/ruby/gems/2.4.0/gems/chef-13.8.5-universal-mingw32/lib"
+      },
+      "ohai": {
+        "version": "13.8.0",
+        "ohai_root": "C:/opscode/chefdk/embedded/lib/ruby/gems/2.4.0/gems/ohai-13.8.0/lib/ohai"
+      }
+    },
+    "dmi": {
+
+    },
+    "cloud_v2": {
+      "public_ipv4_addrs": [
+        "51.144.229.64"
+      ],
+      "local_ipv4_addrs": [
+        "10.0.0.4"
+      ],
+      "provider": "azure",
+      "public_ipv4": "51.144.229.64",
+      "local_ipv4": "10.0.0.4"
+    },
+    "cloud": {
+      "public_ipv4_addrs": [
+        "51.144.229.64"
+      ],
+      "local_ipv4_addrs": [
+        "10.0.0.4"
+      ],
+      "provider": "azure",
+      "public_ipv4": "51.144.229.64",
+      "local_ipv4": "10.0.0.4"
+    },
+    "command": {
+
+    },
+    "hostname": "AIRS-Chef",
+    "machinename": "AIRS-Chef",
+    "fqdn": "AIRS-Chef",
+    "domain": null,
+    "keys": {
+      "ssh": {
+
+      }
+    },
+    "fips": {
+      "kernel": {
+        "enabled": false
+      }
+    },
+    "ohai_time": 1522665417.32604,
+    "packages": {
+      "Sublime Text Build 3143": {
+        "publisher": "Sublime HQ Pty Ltd",
+        "installdate": "20180402"
+      },
+      "Chef Development Kit v2.5.3": {
+        "version": "2.5.3.1",
+        "publisher": "Chef Software, Inc.",
+        "installdate": "20180402"
+      }
+    },
+    "root_group": "Administrators",
+    "time": {
+      "timezone": "Coordinated Universal Time"
+    },
+    "recipes": [
+
+    ],
+    "expanded_run_list": [
+
+    ],
+    "roles": [
+
+    ]
+  }
+}
