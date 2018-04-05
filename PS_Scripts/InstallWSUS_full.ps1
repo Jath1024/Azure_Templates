@@ -6,7 +6,7 @@ if(!(Test-Path -Path $TARGETDIR )){
 	New-Item -Path C: -Name WSUS -ItemType Directory
 	}
 	
-CD "C:\Program Files\Update Services\Tools"
+Set-Location "C:\Program Files\Update Services\Tools"
 .\wsusutil.exe postinstall CONTENT_DIR=C:\WSUS
  
 Write-Verbose "Get WSUS Server Object" -Verbose

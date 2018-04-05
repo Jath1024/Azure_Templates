@@ -51,18 +51,18 @@ Write-Verbose "Disable Products" -Verbose
 #Get-WsusServer | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match "Windows XP" } | Set-WsusProduct -Disable
 
 $allproducts = Get-WsusProduct
-$disabledprodlist = @()
-foreach($product in $allproducts){
-    $disabledprodlist += $product
-    }
+#$disabledprodlist = @()
+#foreach($product in $allproducts){
+#    $disabledprodlist += $product
+#    }
 
 $disabledprodlist = @("office", "windows", "antigen", "bing", "biztalk", "developer tools", "exchange", "expression", "microsoft dynamics", "Microsoft lync server", "office live", "skype for business", "skype", "windows live", "windows vista", "windows xp")
 
-foreach($product in $DisabledProds)
-    {
-        Get-WsusServer | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match "$product" } | Set-WsusProduct -Disable
-    }
 
+foreach($product in $allproducts)
+    {
+        if($disabledprodlist -contains $product){Get-WsusServer | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match "$product" } | Set-WsusProduct -Disable}
+    }
 
 #Write-Verbose "Enable Products" -Verbose
 #Get-WsusServer | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match "Windows Server 2016" } | Set-WsusProduct
