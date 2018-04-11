@@ -56,13 +56,113 @@ $allproducts = Get-WsusProduct
 #    $disabledprodlist += $product
 #    }
 
-$disabledprodlist = @("office", "windows", "antigen", "bing", "biztalk", "developer tools", "exchange", "expression", "microsoft dynamics", "Microsoft lync server", "office live", "skype for business", "skype", "windows live", "windows vista", "windows xp")
+$disabledprodlist = @("office", "windows", "antigen", "bing", "biztalk", "developer tools", "exchange", "expression", "microsoft dynamics", "Microsoft lync server", "office live", "Office Live Add-in", "skype for business", "skype", "windows live", "windows vista", "windows xp")
 
 
 foreach($product in $allproducts)
     {
-        if($disabledprodlist -contains $product){Get-WsusServer | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match "$product" } | Set-WsusProduct -Disable}
+    foreach($disprod in $disabledprodlist)
+        {
+            if($product.product.title -match $disprod)
+                {
+                    #Get-wsusserver | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match $product.product.title } | Set-WsusProduct -Disable
+                    #Write-Output $product.product.title "disabled"
+                    #Write-Host "Match" 
+                    $disableproductflag = 1
+                    BREAK <#disable product and break out of foreach loop#>
+                    }
+            Else 
+                {
+                    #Get-wsusserver | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match $product.product.title } | Set-WsusProduct
+                    #Write-Output $product.Product.Title "enabled"
+                    #Write-Host "no match"<#set product and continue in loop to check for potential disabled product match#>
+                    $disableproductflag = 0
+                    }
+            if($disableproductflag = 0)
+                    {
+                    Get-wsusserver | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match $product.product.title } | Set-WsusProduct
+                    }
+        }
     }
+
+###################################
+
+foreach($product in $allproducts)
+    {
+    foreach($disprod in $disabledprodlist)
+        {
+            if($product.product.title -match $disprod)
+                {
+                    #Get-wsusserver | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match $product.product.title } | Set-WsusProduct -Disable
+                    #Write-Output $product.product.title "disabled"
+                    Write-Host "Match" 
+                    $disableproductflag = 1
+                    BREAK <#disable product and break out of foreach loop#>
+                    }
+            Else 
+                {
+                    #Get-wsusserver | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match $product.product.title } | Set-WsusProduct
+                    #Write-Output $product.Product.Title "enabled"
+                    Write-Host "no match"<#set product and continue in loop to check for potential disabled product match#>
+                    $disableproductflag = 0
+                    }
+        }
+    if($disableproductflag = 0)
+        { 
+            write-output "enabling" $product.product.title
+            Get-wsusserver | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match $product.product.title } | Set-WsusProduct
+        }
+    }
+
+    ###################################
+
+    foreach($product in $allproducts)
+    {
+    $disabledprodlist = @("office", "antigen", "bing", "biztalk", "developer tools", "exchange", "expression", "microsoft dynamics", "Microsoft lync server", "office live", "skype for business", "skype", "windows live", "windows vista", "windows xp")
+    foreach($disprod in $disabledprodlist)
+        {
+            if($product.product.title -match $disprod)
+                {
+                    #Get-wsusserver | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match $product.product.title } | Set-WsusProduct -Disable
+                    #Write-Output $product.product.title "disabled"
+                    Write-Output "Match" $product.Product.Title
+                    $disableproductflag = 1
+                    Write-Output $disableproductflag
+                    BREAK <#disable product and break out of foreach loop#>
+                    }
+            ElseIf ($product.product.id -eq "56309036-4c77-4dd9-951a-99ee9c246a94") {
+                    Write-Output "Match" $product.Product.Title
+                    $disableproductflag = 1
+                    BREAK
+                    } 
+            Else 
+                {
+                    #Get-wsusserver | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match $product.product.title } | Set-WsusProduct
+                    #Write-Output $product.Product.Title "enabled"
+                    Write-OUtput "no match" $product.Product.Title<#set product and continue in loop to check for potential disabled product match#>
+                    $disableproductflag = 0
+                    Write-Output $disableproductflag
+                    }
+        }
+    #write-output $disableproductflag
+        if($disableproductflag -eq 0)
+            { 
+                write-output "enabling" $product.product.title
+                Get-wsusserver | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match $product.product.title } | Set-WsusProduct
+                write-output "sleep for 10 seconds"
+                Start-Sleep -Seconds 10
+            }
+    }
+
+####################################################################
+
+
+
+
+#Get the list of enabled products in the wsus subscription
+$wsus.GetSubscription().GetUpdateCategories() | Select-Object Title, ID
+
+foreach($disprod in $disabledprodlist){if($disprod -contains $allproducts[3].product.title){"Match"} Else {"no match"}}
 
 #Write-Verbose "Enable Products" -Verbose
 #Get-WsusServer | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match "Windows Server 2016" } | Set-WsusProduct
