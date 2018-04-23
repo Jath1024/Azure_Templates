@@ -1,0 +1,11 @@
+
+
+
+
+- name: Run Powershell Scripts
+  hosts: test
+  tasks:
+    - name: run a powershell script
+      script: scripts/InstallWSUS_full.ps1
+      register: out
+    - debug: var=out

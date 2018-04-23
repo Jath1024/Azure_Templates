@@ -72,7 +72,7 @@ Write-Verbose "Configure Synchronizations" -Verbose
 $subscription.SynchronizeAutomatically=$true
  
 Write-Verbose "Set synchronization scheduled for midnight each night" -Verbose
-$subscription.SynchronizeAutomaticallyTimeOfDay= (New-TimeSpan -Hours -2)
+$subscription.SynchronizeAutomaticallyTimeOfDay= (New-TimeSpan -Hours -0)
 $subscription.NumberOfSynchronizationsPerDay=1
 $subscription.Save()
  

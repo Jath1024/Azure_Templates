@@ -3,8 +3,8 @@
 #########################
 
 provider "azurerm" {
-    access_key = "${var.azure_access_key}"
-    secret_key = "${var.azure_secret_key}"
+    subscription_id = "${var.azure_subscription_id}"
+    client_id = "${var.azure_client_id}"
     region     = "uksouth"
 }
 
