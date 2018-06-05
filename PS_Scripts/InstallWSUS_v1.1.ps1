@@ -11,7 +11,7 @@ Format-Volume -FileSystem NTFS -NewFileSystemLabel "dataDisk" -Confirm:$false
 
 #Check if WSUS is enabled
 Write-Verbose "Checking for WSUS Service"
-$wsusstate = Get-WindowsFeature -Name  UpdateServices-RSAT
+$wsusstate = Get-WindowsFeature -Name  UpdateServices
 $wsusstateinstalled = $wsusstate.InstallState
 
 if($wsusstateinstalled='Installed'){
