@@ -1,3 +1,10 @@
+# Requisites: 
+# A Data disk that has already been mounted or can be mounted as E:
+# Script needs to be run as admin
+# Will set a daily sync at 7:30am
+# List of products to be ignored can be added to by adding a string that matches the name returned by Get-WsusProduct
+
+
 #Create Data disk
 
 if(!(Test-Path E:)){
