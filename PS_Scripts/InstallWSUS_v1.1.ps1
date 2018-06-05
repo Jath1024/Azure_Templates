@@ -14,7 +14,7 @@ Write-Verbose "Checking for WSUS Service"
 $wsusstate = Get-WindowsFeature -Name  UpdateServices
 $wsusstateinstalled = $wsusstate.InstallState
 
-if($wsusstateinstalled='Installed'){
+if($wsusstateinstalled -eq 'Installed'){
         exit
     }
 
