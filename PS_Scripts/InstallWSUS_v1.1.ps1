@@ -24,7 +24,7 @@ else{
     Install-WindowsFeature -Name UpdateServices -IncludeManagementTools
     New-Item -Path E: -Name WSUS -ItemType Directory
     CD "C:\Program Files\Update Services\Tools"
-    .\wsusutil.exe postinstall CONTENT_DIR=C:\WSUS
+    .\wsusutil.exe postinstall CONTENT_DIR=E:\WSUS
  
     Write-Verbose "Get WSUS Server Object" -Verbose
     $wsus = Get-WSUSServer
