@@ -1,0 +1,9 @@
+Get-Disk |
+
+Where partitionstyle -eq 'raw' |
+
+Initialize-Disk -PartitionStyle MBR -PassThru |
+
+New-Partition -DriveLetter 'E' -UseMaximumSize |
+
+Format-Volume -FileSystem NTFS -NewFileSystemLabel "dataDisk" -Confirm:$false
