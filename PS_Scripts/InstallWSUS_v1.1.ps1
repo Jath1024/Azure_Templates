@@ -65,24 +65,37 @@ else{
 
 
     foreach($product in $allproducts)
+    {
+    $disabledprodlist = @("office", "antigen", "bing", "biztalk", "developer tools", "exchange", "expression", "microsoft dynamics", "Microsoft lync server", "office live", "skype for business", "skype", "windows live", "windows vista", "windows xp")
+    foreach($disprod in $disabledprodlist)
         {
-        foreach($disprod in $disabledprodlist)
-            {
-                if($product.product.title -match $disprod)
-                    {
-                        $disableproductflag = 1
-                        BREAK <#If product should not be enabled break out of foreach loop and move to next product#>
-                        }
-                Else 
-                    {
-                        $disableproductflag = 0
-                        }
-                if($disableproductflag = 0)
-                        {
-                        Get-wsusserver | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match $product.product.title } | Set-WsusProduct
-                        }
-            }
+            if($product.product.title -match $disprod) <#This loop checks to see if the product matches the unwanted product list above and sets a flag of 1 if there is a match#>
+                {
+                    Write-Output "Match" $product.Product.Title
+                    $disableproductflag = 1
+                    Write-Output $disableproductflag
+                    BREAK <#set disable product flag to 1 and break out of foreach loop#>
+                    }
+            ElseIf ($product.product.id -eq "56309036-4c77-4dd9-951a-99ee9c246a94") {
+                    Write-Output "Match" $product.Product.Title
+                    $disableproductflag = 1
+                    BREAK <#This is a product that enables all products - so it must be ignored - disabled flag is set to 1#>
+                    } 
+            Else 
+                {
+                    Write-OUtput "no match" $product.Product.Title
+                    $disableproductflag = 0 <#Product is wanted - setting productflag to 0 and continue in loop to check for potential disabled product match#>
+                    Write-Output $disableproductflag
+                    }
         }
+        if($disableproductflag -eq 0)
+            { 
+                write-output "enabling" $product.product.title
+                Get-wsusserver | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match $product.product.title } | Set-WsusProduct
+                write-output "sleep for 10 seconds"
+                Start-Sleep -Seconds 10
+            }
+    }
  
     Write-Verbose "Configure the Classifications" -Verbose
  
