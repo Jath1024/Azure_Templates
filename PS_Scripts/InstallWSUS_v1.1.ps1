@@ -105,8 +105,8 @@ else{
             { 
                 write-output "enabling" $product.product.title
                 Get-wsusserver | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match $product.product.title } | Set-WsusProduct
-                write-output "sleep for 10 seconds"
-                Start-Sleep -Seconds 10
+                #write-output "sleep for 10 seconds"
+                #Start-Sleep -Seconds 10
             }
     }
  
