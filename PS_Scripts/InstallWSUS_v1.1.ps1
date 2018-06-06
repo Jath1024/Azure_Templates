@@ -61,12 +61,25 @@ else{
     Write-Verbose "Enable Products" -Verbose
     $allproducts = Get-WsusProduct
 
-    $disabledprodlist = @("office", "windows", "antigen", "bing", "biztalk", "developer tools", "exchange", "expression", "microsoft dynamics", "Microsoft lync server", "office live", "Office Live Add-in", "skype for business", "skype", "windows live", "windows vista", "windows xp", "works")
-
-
+    
     foreach($product in $allproducts)
     {
-    $disabledprodlist = @("office", "antigen", "bing", "biztalk", "developer tools", "exchange", "expression", "microsoft dynamics", "Microsoft lync server", "office live", "skype for business", "skype", "windows live", "windows vista", "windows xp")
+    $disabledprodlist = @("office", 
+                          "antigen", 
+                          "bing", 
+                          "biztalk", 
+                          "developer tools", 
+                          "exchange", 
+                          "expression", 
+                          "microsoft dynamics", 
+                          "Microsoft lync server", 
+                          "office live", 
+                          "skype for business", 
+                          "skype", 
+                          "windows live", 
+                          "windows vista", 
+                          "windows xp")
+                                
     foreach($disprod in $disabledprodlist)
         {
             if($product.product.title -match $disprod) <#This loop checks to see if the product matches the unwanted product list above and sets a flag of 1 if there is a match#>
