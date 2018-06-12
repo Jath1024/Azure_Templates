@@ -109,26 +109,17 @@ else{
                 
             }
     }
-        #Approve license agreements for all approved updates
-        Write-Verbose "Approving legal agreements"
-        $updates = wsus.getupdates()
-        #for each update in $updates, if approved, approve the license agreements.
-        ForEach($update in $updates | where-object {$_.IsDeclined -eq "False" }){
-                if($update | Where-Object {$_.RequiresLicenseAgreementAcceptance -eq "True"}){
-                        $update.AcceptLicenseAgreement()
-                }
-                else{
-                    break
-                }
-        }
-        
-        #Approve each update
-        Write-Verbose "Approving Updates to install to All Computers group"
+        #Approve legal agreements as required and approve each update for download
+        Write-Verbose "Approving Legal agreements as required and approving Updates to install to All Computers group"
         $group = $wsus.GetComputerTargetGroups() | where {$_.Name -eq 'All Computers'}
-        foreach($update in $updates| where-object {$_.IsDeclined -eq "False" }){
-                $updates.Approve("Install", $group)
+
+        foreach($update in $updates | where-object {$_.IsDeclined -eq "False" }){
+                if($update.RequiresLicenseAgreementAcceptance -eq "True"){
+                    $update.AcceptLicenseAgreement()
+                    }
+                $update.Approve("Install", $group)
         }
-        
+               
     Write-Verbose "Configure the Classifications" -Verbose
  
      Get-WsusClassification | Where-Object {
