@@ -27,44 +27,44 @@ if($wsusstateinstalled -eq 'Installed'){
 
 else{
 
-    #Install WSUS 
-    Install-WindowsFeature -Name UpdateServices -IncludeManagementTools
-    New-Item -Path E: -Name WSUS -ItemType Directory
-    CD "C:\Program Files\Update Services\Tools"
-    .\wsusutil.exe postinstall CONTENT_DIR=E:\WSUS
- 
-    Write-Verbose "Get WSUS Server Object" -Verbose
-    $wsus = Get-WSUSServer
- 
-    Write-Verbose "Connect to WSUS server configuration" -Verbose
-    $wsusConfig = $wsus.GetConfiguration()
- 
-    Write-Verbose "Set to download updates from Microsoft Updates" -Verbose
-    Set-WsusServerSynchronization -SyncFromMU
- 
-    Write-Verbose "Set Update Languages to English and save configuration settings" -Verbose
-    $wsusConfig.AllUpdateLanguagesEnabled = $false           
-    $wsusConfig.SetEnabledUpdateLanguages("en")           
-    $wsusConfig.Save()
- 
-    Write-Verbose "Get WSUS Subscription and perform initial synchronization to get latest categories" -Verbose
-    $subscription = $wsus.GetSubscription()
-    $subscription.StartSynchronizationForCategoryOnly()
- 
-     While ($subscription.GetSynchronizationStatus() -ne 'NotProcessing') {
-     Write-Host "." -NoNewline
-     Start-Sleep -Seconds 5
-     }
- 
-    Write-Verbose "Sync is Done" -Verbose
+        #Install WSUS 
+        Install-WindowsFeature -Name UpdateServices -IncludeManagementTools
+        New-Item -Path E: -Name WSUS -ItemType Directory
+        CD "C:\Program Files\Update Services\Tools"
+        .\wsusutil.exe postinstall CONTENT_DIR=E:\WSUS
 
-    Write-Verbose "Enable Products" -Verbose
-    $allproducts = Get-WsusProduct
+        Write-Verbose "Get WSUS Server Object" -Verbose
+        $wsus = Get-WSUSServer
 
-    
-    foreach($product in $allproducts)
-    {
-    $disabledprodlist = @("office", 
+        Write-Verbose "Connect to WSUS server configuration" -Verbose
+        $wsusConfig = $wsus.GetConfiguration()
+
+        Write-Verbose "Set to download updates from Microsoft Updates" -Verbose
+        Set-WsusServerSynchronization -SyncFromMU
+
+        Write-Verbose "Set Update Languages to English and save configuration settings" -Verbose
+        $wsusConfig.AllUpdateLanguagesEnabled = $false           
+        $wsusConfig.SetEnabledUpdateLanguages("en")           
+        $wsusConfig.Save()
+
+        Write-Verbose "Get WSUS Subscription and perform initial synchronization to get latest categories" -Verbose
+        $subscription = $wsus.GetSubscription()
+        $subscription.StartSynchronizationForCategoryOnly()
+
+        While ($subscription.GetSynchronizationStatus() -ne 'NotProcessing') {
+        Write-Host "." -NoNewline
+        Start-Sleep -Seconds 5
+        }
+
+        Write-Verbose "Sync is Done" -Verbose
+
+        Write-Verbose "Enable Products" -Verbose
+        $allproducts = Get-WsusProduct
+
+
+        foreach($product in $allproducts)
+        {
+        $disabledprodlist = @("office", 
                           "antigen", 
                           "bing", 
                           "biztalk", 
@@ -79,8 +79,8 @@ else{
                           "windows live", 
                           "windows vista", 
                           "windows xp")
-                                
-    foreach($disprod in $disabledprodlist)
+
+        foreach($disprod in $disabledprodlist)
         {
             if($product.product.title -match $disprod) <#This loop checks to see if the product matches the unwanted product list above and sets a flag of 1 if there is a match#>
                 {
@@ -105,12 +105,46 @@ else{
             { 
                 write-output "enabling" $product.product.title
                 Get-wsusserver | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match $product.product.title } | Set-WsusProduct
-                
-                
+
+
             }
-    }
+        }
+
+        Write-Verbose "Configure the Classifications" -Verbose
+
+        Get-WsusClassification | Where-Object {
+        $_.Classification.Title -in (
+        'Critical Updates',
+        'Definition Updates',
+        'Feature Packs',
+        'Security Updates',
+        'Service Packs',
+        'Update Rollups',
+        'Updates')
+        } | Set-WsusClassification
+
+        Write-Verbose "Configure Synchronizations" -Verbose
+        $subscription.SynchronizeAutomatically=$true
+
+        Write-Verbose "Set synchronization scheduled for midnight each night" -Verbose
+        $subscription.SynchronizeAutomaticallyTimeOfDay= (New-TimeSpan -Hours 7  -Minutes 30)
+        $subscription.NumberOfSynchronizationsPerDay=1
+        $subscription.Save()
+
+        Write-Verbose "Kick Off Synchronization" -Verbose
+        $subscription.StartSynchronization()
+
+        Write-Verbose "Monitor Progress of Synchronisation" -Verbose
+
+        Start-Sleep -Seconds 60 # Wait for sync to start before monitoring
+        while ($subscription.GetSynchronizationProgress().ProcessedItems -ne $subscription.GetSynchronizationProgress().TotalItems) {
+        #$subscription.GetSynchronizationProgress().ProcessedItems * 100/($subscription.GetSynchronizationProgress().TotalItems)
+        Start-Sleep -Seconds 5
+        }
+     
         #Approve legal agreements as required and approve each update for download
         Write-Verbose "Approving Legal agreements as required and approving Updates to install to All Computers group"
+        
         $group = $wsus.GetComputerTargetGroups() | where {$_.Name -eq 'All Computers'}
 
         foreach($update in $updates | where-object {$_.IsDeclined -eq "False" }){
@@ -119,36 +153,4 @@ else{
                     }
                 $update.Approve("Install", $group)
         }
-               
-    Write-Verbose "Configure the Classifications" -Verbose
- 
-     Get-WsusClassification | Where-Object {
-     $_.Classification.Title -in (
-     'Critical Updates',
-     'Definition Updates',
-     'Feature Packs',
-     'Security Updates',
-     'Service Packs',
-     'Update Rollups',
-     'Updates')
-     } | Set-WsusClassification
- 
-    Write-Verbose "Configure Synchronizations" -Verbose
-    $subscription.SynchronizeAutomatically=$true
- 
-    Write-Verbose "Set synchronization scheduled for midnight each night" -Verbose
-    $subscription.SynchronizeAutomaticallyTimeOfDay= (New-TimeSpan -Hours 7  -Minutes 30)
-    $subscription.NumberOfSynchronizationsPerDay=1
-    $subscription.Save()
- 
-    Write-Verbose "Kick Off Synchronization" -Verbose
-    $subscription.StartSynchronization()
- 
-    Write-Verbose "Monitor Progress of Synchronisation" -Verbose
- 
-    Start-Sleep -Seconds 60 # Wait for sync to start before monitoring
-     while ($subscription.GetSynchronizationProgress().ProcessedItems -ne $subscription.GetSynchronizationProgress().TotalItems) {
-     #$subscription.GetSynchronizationProgress().ProcessedItems * 100/($subscription.GetSynchronizationProgress().TotalItems)
-     Start-Sleep -Seconds 5
-     }
 }
