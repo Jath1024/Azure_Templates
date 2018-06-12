@@ -115,8 +115,7 @@ else{
         #for each update in $updates, if approved, approve the license agreements.
         ForEach($update in $updates | where-object {$_.IsDeclined -eq "False" }){
                 $license = $update | Where {$_.RequiresLicenseAgreementAcceptance}
-                $license | ForEach {$_.AcceptLicenseAgreement()}
-                $update
+                $license.AcceptLicenseAgreement()
         }
         
         #Approve each update
