@@ -109,6 +109,14 @@ else{
 
             }
         }
+        
+        Write-Verbose "Set Default Automatic Approval Rule"
+        
+        
+        $wsus = Get-WsusServer
+        $rule = $wsus.GetInstallApprovalRules() | Where {$_.Name -eq "Default Automatic Approval Rule"}
+        $rule.Enabled = $true
+        $rule.ApplyRule()
 
         Write-Verbose "Configure the Classifications" -Verbose
 
