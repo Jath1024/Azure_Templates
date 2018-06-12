@@ -105,11 +105,27 @@ else{
             { 
                 write-output "enabling" $product.product.title
                 Get-wsusserver | Get-WsusProduct | Where-Object -FilterScript { $_.product.title -match $product.product.title } | Set-WsusProduct
-                #write-output "sleep for 10 seconds"
-                #Start-Sleep -Seconds 10
+                
+                
             }
     }
- 
+        #Approve license agreements for all approved updates
+        Write-Verbose "Approving legal agreements"
+        $updates = wsus.getupdates()
+        #for each update in $updates, if approved, approve the license agreements.
+        ForEach($update in $updates | where-object {$_.IsDeclined -eq "False" }){
+                $license = $update | Where {$_.RequiresLicenseAgreementAcceptance}
+                $license | ForEach {$_.AcceptLicenseAgreement()}
+                $update
+        }
+        
+        #Approve each update
+        Write-Verbose "Approving Updates to install to All Computers group"
+        $group = $wsus.GetComputerTargetGroups() | where {$_.Name -eq 'All Computers'}
+        foreach($update in $updates| where-object {$_.IsDeclined -eq "False" }){
+                $updates.Approve("Install", $group)
+        }
+        
     Write-Verbose "Configure the Classifications" -Verbose
  
      Get-WsusClassification | Where-Object {
