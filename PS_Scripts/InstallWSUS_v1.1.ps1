@@ -114,8 +114,12 @@ else{
         $updates = wsus.getupdates()
         #for each update in $updates, if approved, approve the license agreements.
         ForEach($update in $updates | where-object {$_.IsDeclined -eq "False" }){
-                $license = $update | Where {$_.RequiresLicenseAgreementAcceptance}
-                $license.AcceptLicenseAgreement()
+                if($update | Where-Object {$_.RequiresLicenseAgreementAcceptance -eq "True"}){
+                        $update.AcceptLicenseAgreement()
+                }
+                else{
+                    break
+                }
         }
         
         #Approve each update
