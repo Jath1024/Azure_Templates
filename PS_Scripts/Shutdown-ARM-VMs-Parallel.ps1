@@ -1,5 +1,5 @@
 
-workflow Shutdown-Start-ARM-VMs-Parallel {
+workflow Shutdown-ARM-VMs-Parallel {
     sequence{
         try {
             $account = Connect-AzureRmAccount -Subscription 7cba3fdf-6b24-495e-9818-42cb0957b235
