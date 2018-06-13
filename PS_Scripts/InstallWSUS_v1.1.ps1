@@ -109,114 +109,6 @@ else{
 
             }
         }
-        
-        Write-Verbose "Set Default Automatic Approval Rule"
-        
-        
-        $wsus = Get-WsusServer
-        $rule = $wsus.GetInstallApprovalRules() | Where {$_.Name -eq "Default Automatic Approval Rule"}
-        $rule.Enabled = $true
-        $rule.ApplyRule()
-
-#Create New Rule Object
-
-$newRule = $wsus.CreateInstallApprovalRule("2012Servers")
-
- 
-
-##Categories
-
-#Get Categories for Windows Server
-
-$updateCategories = $wsus.GetUpdateCategories() | Where {
-
-  $_.Title -LIKE "Windows Server 2012*"
-
-}
-
- 
-
-#Create collection for Categories
-
-$categoryCollection = New-Object Microsoft.UpdateServices.Administration.UpdateCategoryCollection
-
-$categoryCollection.AddRange($updateCategories)
-
- 
-
-#Add the Categories to the Rule
-
-$newRule.SetCategories($categoryCollection)
-
- 
-
-##Classifications
-
-#Get all Classifications for specific Classifications
-
-$updateClassifications = $wsus.GetUpdateClassifications() | Where {
-
-  $_.Title -Match "Critical Updates|Service Packs|Updates|Security Updates"
-
-}
-
- 
-
-#Create collection for Categories
-
-$classificationCollection = New-Object Microsoft.UpdateServices.Administration.UpdateClassificationCollection
-
-$classificationCollection.AddRange($updateClassifications )
-
- 
-
-#Add the Classifications to the Rule
-
-$newRule.SetUpdateClassifications($classificationCollection)
-
- 
-
-##Target Groups
-
-#Get Target Groups required for Rule
-
-$targetGroups = $wsus.GetComputerTargetGroups() | Where {
-
-  $_.Name -Match "All Computers"
-
-}
-
- 
-
-#Create collection for TargetGroups
-
-$targetgroupCollection = New-Object Microsoft.UpdateServices.Administration.ComputerTargetGroupCollection
-
-$targetgroupCollection.AddRange($targetGroups)
-
- 
-
-#Add the Target Groups to the Rule
-
-$newRule.SetComputerTargetGroups($targetgroupCollection)
-
- 
-
-#Finalize the creation of the rule object
-
-$newRule.Enabled = $True
-
-$newRule.Save()
-
- 
-
-#Run the rule
-
-$newRule.ApplyRule()
-
- 
-
-Let’s make sure that the rule is now created.
 
         Write-Verbose "Configure the Classifications" -Verbose
 
@@ -230,6 +122,40 @@ Let’s make sure that the rule is now created.
         'Update Rollups',
         'Updates')
         } | Set-WsusClassification
+
+        Write-Verbose "Set Default Automatic Approval Rule"
+
+        #Create New Rule Object
+        $newRule = $wsus.GetInstallApprovalRules() | Where {$_.Name -eq "Default Automatic Approval Rule"}
+
+        ##Classifications
+        #Get all Classifications for specific Classifications
+        $updateClassifications = $wsus.GetUpdateClassifications() | Where {$_.Title -Match "Critical Updates|Definition Updates|Feature Packs|Security Updates|Service Packs|Update Rollups|Updates"}
+
+        #Create collection for Categories
+        $classificationCollection = New-Object Microsoft.UpdateServices.Administration.UpdateClassificationCollection
+        $classificationCollection.AddRange($updateClassifications )
+
+        #Add the Classifications to the Rule
+        $newRule.SetUpdateClassifications($classificationCollection)
+
+        ##Target Groups
+        #Get Target Groups required for Rule
+        $targetGroups = $wsus.GetComputerTargetGroups() | Where {$_.Name -Match "All Computers"}
+
+        #Create collection for TargetGroups
+        $targetgroupCollection = New-Object Microsoft.UpdateServices.Administration.ComputerTargetGroupCollection
+        $targetgroupCollection.AddRange($targetGroups)
+
+        #Add the Target Groups to the Rule
+        $newRule.SetComputerTargetGroups($targetgroupCollection)
+
+        #Finalize the creation of the rule object
+        $newRule.Enabled = $True
+        $newRule.Save()
+
+        #Run the rule
+        $newRule.ApplyRule()
 
         Write-Verbose "Configure Synchronizations" -Verbose
         $subscription.SynchronizeAutomatically=$true
