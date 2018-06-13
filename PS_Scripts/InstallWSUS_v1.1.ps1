@@ -7,12 +7,12 @@
 
 #Create Data disk
 
-if(!(Test-Path E:)){
-Write-Verbose "Creating Data Drive E:"
+if(!(Test-Path F:)){
+Write-Verbose "Creating Data Drive F:"
 Get-Disk |
 Where partitionstyle -eq 'raw' |
 Initialize-Disk -PartitionStyle MBR -PassThru |
-New-Partition -DriveLetter 'E' -UseMaximumSize |
+New-Partition -DriveLetter 'F' -UseMaximumSize |
 Format-Volume -FileSystem NTFS -NewFileSystemLabel "dataDisk" -Confirm:$false
 }
 
@@ -29,9 +29,9 @@ else{
 
         #Install WSUS 
         Install-WindowsFeature -Name UpdateServices -IncludeManagementTools
-        New-Item -Path E: -Name WSUS -ItemType Directory
+        New-Item -Path F: -Name WSUS -ItemType Directory
         CD "C:\Program Files\Update Services\Tools"
-        .\wsusutil.exe postinstall CONTENT_DIR=E:\WSUS
+        .\wsusutil.exe postinstall CONTENT_DIR=F:\WSUS
 
         Write-Verbose "Get WSUS Server Object" -Verbose
         $wsus = Get-WSUSServer
