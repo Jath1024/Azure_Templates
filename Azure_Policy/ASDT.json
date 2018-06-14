@@ -1,0 +1,31 @@
+{
+    "type": "Microsoft.Authorization/policyDefinitions",
+    "name": "Permitted UK South and UK West Resources",
+    "properties": {
+        "displayName": "Allowed resource types",
+        "policyType": "BuiltIn",
+        "description": "This policy enables you to specify the resource types that your organization can deploy.",
+        "parameters": {},
+            "policyRule": {
+            "if": {
+                "not": {
+                    "allOf": [
+                        {
+                            "field": "type",
+                            "in": ["Microsoft.AnalysisServices","Microsoft.Compute","Microsoft.Network/connections","Microsoft.Storage","Microsoft.keyVault","Microsoft.Network/loadBalancers","Microsoft.Network/networkInterfaces","Microsoft.Network/networkSecurityGroups","Microsoft.Network/applicationSecurityGroups","Microsoft.Network/publicIpAddresses","Microsoft.Network/routeTables","Microsoft.Sql","Microsoft.Storage/storageAccounts","Microsoft.Compute","Microsoft.Network/networkWatchers","Microsoft.Network/virtualNetworkGateways"]
+                        },
+                        {
+                            "field": "location",
+                            "in": ["uksouth","ukwest"]
+                        }
+                    ]
+                }
+            },
+            "then": {
+                "effect": "deny"
+            }
+        }
+    }
+}
+
+        
