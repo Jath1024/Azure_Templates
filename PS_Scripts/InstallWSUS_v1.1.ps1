@@ -7,12 +7,12 @@
 
 #Create Data disk
 
-if(!(Test-Path E:)){
-Write-Verbose "Creating Data Drive E:"
+if(!(Test-Path F:)){
+Write-Verbose "Creating Data Drive F:"
 Get-Disk |
 Where partitionstyle -eq 'raw' |
 Initialize-Disk -PartitionStyle MBR -PassThru |
-New-Partition -DriveLetter 'E' -UseMaximumSize |
+New-Partition -DriveLetter 'F' -UseMaximumSize |
 Format-Volume -FileSystem NTFS -NewFileSystemLabel "dataDisk" -Confirm:$false
 }
 
@@ -29,9 +29,9 @@ else{
 
         #Install WSUS 
         Install-WindowsFeature -Name UpdateServices -IncludeManagementTools
-        New-Item -Path E: -Name WSUS -ItemType Directory
+        New-Item -Path F: -Name WSUS -ItemType Directory
         CD "C:\Program Files\Update Services\Tools"
-        .\wsusutil.exe postinstall CONTENT_DIR=E:\WSUS
+        .\wsusutil.exe postinstall CONTENT_DIR=F:\WSUS
 
         Write-Verbose "Get WSUS Server Object" -Verbose
         $wsus = Get-WSUSServer
@@ -122,6 +122,40 @@ else{
         'Update Rollups',
         'Updates')
         } | Set-WsusClassification
+
+        Write-Verbose "Set Default Automatic Approval Rule"
+
+        #Create New Rule Object
+        $newRule = $wsus.GetInstallApprovalRules() | Where {$_.Name -eq "Default Automatic Approval Rule"}
+
+        ##Classifications
+        #Get all Classifications for specific Classifications
+        $updateClassifications = $wsus.GetUpdateClassifications() | Where {$_.Title -Match "Critical Updates|Definition Updates|Feature Packs|Security Updates|Service Packs|Update Rollups|Updates"}
+
+        #Create collection for Categories
+        $classificationCollection = New-Object Microsoft.UpdateServices.Administration.UpdateClassificationCollection
+        $classificationCollection.AddRange($updateClassifications )
+
+        #Add the Classifications to the Rule
+        $newRule.SetUpdateClassifications($classificationCollection)
+
+        ##Target Groups
+        #Get Target Groups required for Rule
+        $targetGroups = $wsus.GetComputerTargetGroups() | Where {$_.Name -Match "All Computers"}
+
+        #Create collection for TargetGroups
+        $targetgroupCollection = New-Object Microsoft.UpdateServices.Administration.ComputerTargetGroupCollection
+        $targetgroupCollection.AddRange($targetGroups)
+
+        #Add the Target Groups to the Rule
+        $newRule.SetComputerTargetGroups($targetgroupCollection)
+
+        #Finalize the creation of the rule object
+        $newRule.Enabled = $True
+        $newRule.Save()
+
+        #Run the rule
+        $newRule.ApplyRule()
 
         Write-Verbose "Configure Synchronizations" -Verbose
         $subscription.SynchronizeAutomatically=$true
